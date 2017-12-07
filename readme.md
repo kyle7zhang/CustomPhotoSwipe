@@ -7,7 +7,7 @@
 * goToAnimated: 向前/后翻页(-1/1)
 * 一些TBS内核兼容以及性能上的优化
 
-## QQ动漫阅读器范爷模式示意图
+## QQ动漫阅读器翻页模式示意图
 
 ![](https://raw.githubusercontent.com/icese7en/CustomPhotoSwipe/master/assets/img/snapshot.png)
 
