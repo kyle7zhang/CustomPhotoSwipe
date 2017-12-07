@@ -4,6 +4,11 @@
 * (boolean) prependItems/appendItems(Array): 向列表前方添加item项，并会自动修复索引，返回添加是否成功。建议在`mainScrollAnimComplete`事件回调中调用，否则可能失败，失败后需要自行保存要添加的内容，并在下一个时机再添加。
 * 增加Matrix模式，自动在Android 7版本下启用，提升流畅性。
 * 允许缩放富文本HTML内容
+* goToAnimated: 向前/后翻页(-1/1)
+
+## QQ动漫阅读器范爷模式示意图
+
+![](https://raw.githubusercontent.com/icese7en/CustomPhotoSwipe/master/assets/img/snapshot.png)
 
 ## 参考
 
