@@ -39,7 +39,6 @@ var items = [
 var options = {
     // optionName: 'option value'
     // for example:
-    enableMatrix: false,
     index: 0 // start at first slide
 };
 
