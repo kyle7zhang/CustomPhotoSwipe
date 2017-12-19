@@ -1,26 +1,26 @@
-## 简介
+## Introduction
 
-本库是[PhotoSwipe](https://github.com/dimsemenov/PhotoSwipe)的扩展版，主要扩展了如下的功能：
-* (boolean) prependItems/appendItems(Array): 向列表前方添加item项，并会自动修复索引，返回添加是否成功。建议在`mainScrollAnimComplete`事件回调中调用，否则可能失败，失败后需要自行保存要添加的内容，并在下一个时机再添加。
-* 增加Matrix模式，自动在Android 7版本下启用，提升流畅性。
-* 允许缩放富文本HTML内容
-* goToAnimated: 向前/后翻页(-1/1)
-* 一些TBS内核兼容以及性能上的优化
+This is an extension of [PhotoSwipe](https://github.com/dimsemenov/PhotoSwipe), new features added:
+* (return boolean) prependItems/appendItems(Array): prepend/append/remove items and will keep current state of current slide. Can only be successful when `!_mainScrollAnimating`. When append/prepend/remove failed, please retry in your project. Recommend using this api in the `mainScrollAnimComplete` event callback.
+* Add Matrix mode, automatically enable before Android 7, improve scaling performance.
+* Enable scaling rich text html.
+* goToAnimated: animated flip page(-1/1).
+* Some improvements in QQBrowser which embedded in android QQ or wechat.
 
-## QQ动漫阅读器翻页模式示意图
+## QQ Comic Reader: Flip mode
 
 ![](https://raw.githubusercontent.com/icese7en/CustomPhotoSwipe/master/assets/img/snapshot.png)
 
-## 参考
+## References
 
-* [PhotoSwipe原版](https://github.com/dimsemenov/PhotoSwipe)
-* [使用iPad QQ访问我们的iPad版动漫阅读器](http://dm.vip.qq.com/club/client/ipadComic/html/large-scale/comic/reader.html?_wv=1&_secondWebView=1&fromWeb=1&direct=1&platId=110&_nav_bgclr=0x000000&_nav_txtclr=0xFFFFFF&_nav_alpha=178&_nav_shade=1&_wv_bgclr=0x333333&id=531040&sectionId=3&type=3&_pwv=15)：或者模拟UA `Mozilla/5.0 (iPad; CPU OS 9_2_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13D15 IPadQQ/6.6.1.136 QQ/6.6.1.136` 访问
+* [PhotoSwipe Official](https://github.com/dimsemenov/PhotoSwipe)
+* [Using iPad QQ to view our comic reader of iPad version](http://dm.vip.qq.com/club/client/ipadComic/html/large-scale/comic/reader.html?_wv=1&_secondWebView=1&fromWeb=1&direct=1&platId=110&_nav_bgclr=0x000000&_nav_txtclr=0xFFFFFF&_nav_alpha=178&_nav_shade=1&_wv_bgclr=0x333333&id=531040&sectionId=3&type=3&_pwv=15)：Or simulate User Agent `Mozilla/5.0 (iPad; CPU OS 9_2_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13D15 IPadQQ/6.6.1.136 QQ/6.6.1.136` to view our page
 
-## 使用
+## Usage
 
-* 页面上先引入`./css/default-skin.css`和`./css/photoswipe.css`
-* 引入脚本`./js/CustomPhotoSwipe-4.1.1.js`
-* 随后执行
+* Link stylesheet `./css/default-skin.css` and `./css/photoswipe.css`
+* Insert script `./js/CustomPhotoSwipe-4.1.1.js`
+* Run page
 
 ```javascript
 
@@ -58,7 +58,7 @@ setTimeout(function () {
     }
 
     if (gallery) {
-        // 动态添加时建议再`mainScrollAnimComplete`中添加，否则可能添加失败
+        // Dynamic append/prepend/remove only can work during `mainScrollAnimComplete`
         // gallery.listen('mainScrollAnimComplete', function () {
         // 	if (gallery) {
         // 		if (appendQueue.length > 0 && gallery.appendItems(appendQueue)) {
