@@ -594,7 +594,8 @@
 					zoom = zoom / (item ? item.fitRatio : self.currItem.fitRatio);
 				}
 
-				if (_allow3dTransform && _features.androidVersion < 7) {
+				// enable matrix3d on android
+				if (_allow3dTransform && _features.androidVersion) {
 					var _elements = transform({
 						translateX: x,
 						translateY: y,

@@ -2,7 +2,7 @@
 
 This is an extension of [PhotoSwipe](https://github.com/dimsemenov/PhotoSwipe), new features added:
 * (return boolean) prependItems/appendItems(Array): prepend/append/remove items and will keep current state of current slide. Can only be successful when `!_mainScrollAnimating`. When append/prepend/remove failed, please retry in your project. Recommend using this api in the `mainScrollAnimComplete` event callback.
-* Add Matrix mode, automatically enable before Android 7, improve scaling performance.
+* Add Matrix mode, automatically enable on android, improve scaling performance.
 * Enable scaling rich text html.
 * goToAnimated: animated flip page(-1/1).
 * Some improvements in QQBrowser which embedded in android QQ or wechat.
