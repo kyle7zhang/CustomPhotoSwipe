@@ -86,9 +86,10 @@
 		// build items array
 		var items = [
 			{
-				html: '<div style="background-image: url(https://placekitten.com/1200/900);background-size: cover;"></div>',
-				w: 1200,
-				h: 900
+				html: '<div style="background-image: url(../assets/img/long_pic.jpg);background-size: cover;"></div>',
+				w: 375,
+				h: 1200,
+				scaleMode: 'orig'
 			}
 		];
 
@@ -96,7 +97,10 @@
 		var options = {
 			// optionName: 'option value'
 			// for example:
-			index: 0 // start at first slide
+			index: 0, // start at first slide
+			closeOnScroll: false,
+			pinchToClose: false,
+			closeOnVerticalDrag: false
 		};
 
 		// Initializes and opens PhotoSwipe

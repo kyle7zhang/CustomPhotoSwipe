@@ -3019,7 +3019,7 @@
 						item.fitRatio = hRatio < vRatio ? hRatio : vRatio;
 						//item.fillRatio = hRatio > vRatio ? hRatio : vRatio;
 
-						var scaleMode = _options.scaleMode;
+						var scaleMode = item.scaleMode || _options.scaleMode;
 
 						if (scaleMode === 'orig') {
 							zoomLevel = 1;
