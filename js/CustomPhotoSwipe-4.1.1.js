@@ -180,6 +180,7 @@
 								features.isOldIOSPhone = true;
 							}
 						}
+						features.iosVersion = v; // for touchend bug
 					}
 
 					// Detect old Android (before KitKat)
@@ -353,6 +354,11 @@
 			return {x:0,y:0};
 		};
 
+		var _renderMaxResolution = function(item) {
+			// 如果使用的orig模式，且是iOS，使用maxResolution来渲染
+			return _features.iosVersion > 0 && ['orig', 'adjustWidth'].indexOf(item.scaleMode || _options.scaleMode) > -1;
+		};
+
 		var _isOpen,
 			_isDestroying,
 			_closedByScroll,
@@ -397,7 +403,6 @@
 			_currentWindowScrollY,
 			_features,
 			_windowVisibleSize = {},
-			_renderMaxResolution = false,
 
 			// Registers PhotoSWipe module (History, Controller ...)
 			_registerModule = function(name, module) {
@@ -448,8 +453,12 @@
 			},
 
 			_applyZoomTransform = function(styleObj,x,y,zoom,item) {
-				if(!_renderMaxResolution || (item && item !== self.currItem) ) {
-					zoom = zoom / (item ? item.fitRatio : self.currItem.fitRatio);
+				if(!_renderMaxResolution(item || self.currItem) || (item && item !== self.currItem)) {
+					if (_renderMaxResolution(item || self.currItem)) {
+						zoom = item ? item.fitRatio : self.currItem.fitRatio;
+					} else {
+						zoom = zoom / (item ? item.fitRatio : self.currItem.fitRatio);
+					}
 				}
 
 				// enable matrix3d on android
@@ -460,6 +469,7 @@
 			},
 			_applyCurrentZoomPan = function( allowRenderResolution ) {
 				if(_currZoomElementStyle) {
+
 					_applyZoomTransform(_currZoomElementStyle, _panOffset.x, _panOffset.y, _currZoomLevel);
 				}
 			},
@@ -1237,7 +1247,6 @@
 
 
 				self.currItem = _getItemAt( _currentItemIndex );
-				_renderMaxResolution = false;
 
 				_shout('beforeChange', _indexDiff);
 
@@ -2874,6 +2883,12 @@
 							zoomLevel = 1;
 						} else if (scaleMode === 'fit') {
 							zoomLevel = item.fitRatio;
+						} else if (scaleMode === 'adjustWidth') {
+							if (hRatio < 1) {
+								zoomLevel = hRatio;
+							} else {
+								zoomLevel = 1;
+							}
 						}
 
 						if (zoomLevel > 1) {
@@ -2924,7 +2939,7 @@
 				if(img) {
 
 					item.imageAppended = true;
-					_setImageSize(item, img, (item === self.currItem && _renderMaxResolution) );
+					_setImageSize(item, img);
 
 					baseDiv.appendChild(img);
 
@@ -3044,8 +3059,8 @@
 					wrapElement = item.container.lastChild;
 				}
 
-				var w = maxRes ? item.w : Math.round(item.w * item.fitRatio),
-					h = maxRes ? item.h : Math.round(item.h * item.fitRatio);
+				var w = _renderMaxResolution(item) ? item.w : Math.round(item.w * item.fitRatio),
+					h = _renderMaxResolution(item) ? item.h : Math.round(item.h * item.fitRatio);
 
 				if(item.placeholder && !item.loaded) {
 					item.placeholder.style.width = w + 'px';
